@@ -46,313 +46,313 @@
     font-weight: bold;
 }
 </style>
-<h1>api-documentation for
+<h1>api documentation for
     <a
-        
+
         href="https://github.com/websockets/ws#readme"
-        
-    >ws (v2.2.1)</a>
+
+    >ws (v2.2.2)</a>
 </h1>
 <h4>Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js</h4>
 <div class="apidocSectionDiv"><a
     href="#apidoc.tableOfContents"
     id="apidoc.tableOfContents"
 ><h1>table of contents</h1></a><ol>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.ws">module ws</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Receiver">
             function <span class="apidocSignatureSpan">ws.</span>Receiver
             <span class="apidocSignatureSpan">(extensions, maxPayload, binaryType)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Sender">
             function <span class="apidocSignatureSpan">ws.</span>Sender
             <span class="apidocSignatureSpan">(socket, extensions)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Server">
             function <span class="apidocSignatureSpan">ws.</span>Server
             <span class="apidocSignatureSpan">(Boolean|Object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">ws.</span>CLOSED</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">ws.</span>CLOSING</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">ws.</span>CONNECTING</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">ws.</span>OPEN</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.</span>BufferUtil</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.</span>Constants</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.</span>ErrorCodes</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.</span>EventTarget</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.</span>Extensions</span>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.ws.BufferUtil">module ws.BufferUtil</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.BufferUtil.concat">
             function <span class="apidocSignatureSpan">ws.BufferUtil.</span>concat
             <span class="apidocSignatureSpan">(list, totalLength)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.BufferUtil.mask">
             function <span class="apidocSignatureSpan">ws.BufferUtil.</span>mask
             <span class="apidocSignatureSpan">(source, mask, output, offset, length)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.BufferUtil.unmask">
             function <span class="apidocSignatureSpan">ws.BufferUtil.</span>unmask
             <span class="apidocSignatureSpan">(buffer, mask)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.ws.Constants">module ws.Constants</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Constants.NOOP">
             function <span class="apidocSignatureSpan">ws.Constants.</span>NOOP
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.Constants.</span>BINARY_TYPES</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">ws.Constants.</span>EMPTY_BUFFER</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.Constants.</span>GUID</span>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.ws.ErrorCodes">module ws.ErrorCodes</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.ErrorCodes.isValidErrorCode">
             function <span class="apidocSignatureSpan">ws.ErrorCodes.</span>isValidErrorCode
             <span class="apidocSignatureSpan">(code)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1000</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1001</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1002</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1003</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1004</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1005</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1006</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1007</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1008</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1009</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1010</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1011</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1012</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">ws.ErrorCodes.</span>1013</span>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.ws.EventTarget">module ws.EventTarget</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.EventTarget.addEventListener">
             function <span class="apidocSignatureSpan">ws.EventTarget.</span>addEventListener
             <span class="apidocSignatureSpan">(method, listener)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.EventTarget.removeEventListener">
             function <span class="apidocSignatureSpan">ws.EventTarget.</span>removeEventListener
             <span class="apidocSignatureSpan">(method, listener)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.ws.Extensions">module ws.Extensions</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Extensions.format">
             function <span class="apidocSignatureSpan">ws.Extensions.</span>format
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Extensions.parse">
             function <span class="apidocSignatureSpan">ws.Extensions.</span>parse
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws" id="apidoc.module.ws">module ws</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.ws.Receiver" id="apidoc.element.ws.Receiver">
         function <span class="apidocSignatureSpan">ws.</span>Receiver
@@ -542,9 +542,9 @@
       } else { ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.ws.Sender" id="apidoc.element.ws.Sender">
         function <span class="apidocSignatureSpan">ws.</span>Sender
@@ -698,9 +698,9 @@
       } else if (ArrayBuffer.isV ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.ws.Server" id="apidoc.element.ws.Server">
         function <span class="apidocSignatureSpan">ws.</span>Server
@@ -857,32 +857,32 @@ const wss = new WebSocket.<span class="apidocCodeKeywordSpan">Server</span>({
 On the client:
 ...</pre></li>
     </ul>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws.BufferUtil" id="apidoc.module.ws.BufferUtil">module ws.BufferUtil</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.ws.BufferUtil.concat" id="apidoc.element.ws.BufferUtil.concat">
         function <span class="apidocSignatureSpan">ws.BufferUtil.</span>concat
@@ -903,26 +903,26 @@ On the client:
   return target;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-function format (value) {
-return Object.keys(value).map(function (token) {
-  var paramsList = value[token];
-  if (!Array.isArray(paramsList)) {
-    paramsList = [paramsList];
-  }
-  return paramsList.map(function (params) {
-    return [token].<span class="apidocCodeKeywordSpan">concat</span>(Object.keys(params).map(function (k) {
-      var p = params[k];
-      if (!Array.isArray(p)) p = [p];
-      return p.map(function (v) {
-        return v === true ? k : k + &#x27;=&#x27; + v;
-      }).join(&#x27;; &#x27;);
-    })).join(&#x27;; &#x27;);
+ * @public
+ */
+const format = (value) =&#x3e; {
+  return Object.keys(value).map((token) =&#x3e; {
+    var paramsList = value[token];
+    if (!Array.isArray(paramsList)) paramsList = [paramsList];
+    return paramsList.map((params) =&#x3e; {
+      return [token].<span class="apidocCodeKeywordSpan">concat</span>(Object.keys(params).map((k) =&#x3e; {
+        var p = params[k];
+        if (!Array.isArray(p)) p = [p];
+        return p.map((v) =&#x3e; v === true ? k : `${k}=${v}`).join(&#x27;; &#x27;);
+      })).join(&#x27;; &#x27;);
+    }).join(&#x27;, &#x27;);
   }).join(&#x27;, &#x27;);
+};
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.ws.BufferUtil.mask" id="apidoc.element.ws.BufferUtil.mask">
         function <span class="apidocSignatureSpan">ws.BufferUtil.</span>mask
@@ -952,9 +952,9 @@ return Object.keys(value).map(function (token) {
 }
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.ws.BufferUtil.unmask" id="apidoc.element.ws.BufferUtil.unmask">
         function <span class="apidocSignatureSpan">ws.BufferUtil.</span>unmask
@@ -987,14 +987,14 @@ if (this.opcode &#x3e; 0x07) {
   this.decompress(data);
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws.Constants" id="apidoc.module.ws.Constants">module ws.Constants</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.ws.Constants.NOOP" id="apidoc.element.ws.Constants.NOOP">
         function <span class="apidocSignatureSpan">ws.Constants.</span>NOOP
@@ -1005,20 +1005,20 @@ if (this.opcode &#x3e; 0x07) {
     <li>description and source-code<pre class="apidocCodePre">() =&#x3e; {}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws.ErrorCodes" id="apidoc.module.ws.ErrorCodes">module ws.ErrorCodes</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.ws.ErrorCodes.isValidErrorCode" id="apidoc.element.ws.ErrorCodes.isValidErrorCode">
         function <span class="apidocSignatureSpan">ws.ErrorCodes.</span>isValidErrorCode
@@ -1048,42 +1048,42 @@ const buf = data.slice(2);
 if (!isValidUTF8(buf)) {
 ...</pre></li>
     </ul>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws.EventTarget" id="apidoc.module.ws.EventTarget">module ws.EventTarget</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.ws.EventTarget.addEventListener" id="apidoc.element.ws.EventTarget.addEventListener">
         function <span class="apidocSignatureSpan">ws.EventTarget.</span>addEventListener
@@ -1130,9 +1130,9 @@ if (!isValidUTF8(buf)) {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.ws.EventTarget.removeEventListener" id="apidoc.element.ws.EventTarget.removeEventListener">
         function <span class="apidocSignatureSpan">ws.EventTarget.</span>removeEventListener
@@ -1151,14 +1151,14 @@ if (!isValidUTF8(buf)) {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws.Extensions" id="apidoc.module.ws.Extensions">module ws.Extensions</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.ws.Extensions.format" id="apidoc.element.ws.Extensions.format">
         function <span class="apidocSignatureSpan">ws.Extensions.</span>format
@@ -1166,19 +1166,15 @@ if (!isValidUTF8(buf)) {
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">function format(value) {
-  return Object.keys(value).map(function (token) {
+    <li>description and source-code<pre class="apidocCodePre">(value) =&#x3e; {
+  return Object.keys(value).map((token) =&#x3e; {
     var paramsList = value[token];
-    if (!Array.isArray(paramsList)) {
-      paramsList = [paramsList];
-    }
-    return paramsList.map(function (params) {
-      return [token].concat(Object.keys(params).map(function (k) {
+    if (!Array.isArray(paramsList)) paramsList = [paramsList];
+    return paramsList.map((params) =&#x3e; {
+      return [token].concat(Object.keys(params).map((k) =&#x3e; {
         var p = params[k];
         if (!Array.isArray(p)) p = [p];
-        return p.map(function (v) {
-          return v === true ? k : k + &#x27;=&#x27; + v;
-        }).join(&#x27;; &#x27;);
+        return p.map((v) =&#x3e; v === true ? k : `${k}=${v}`).join(&#x27;; &#x27;);
       })).join(&#x27;; &#x27;);
     }).join(&#x27;, &#x27;);
   }).join(&#x27;, &#x27;);
@@ -1200,9 +1196,9 @@ if (props.length) {
 this.emit(&#x27;headers&#x27;, headers);
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.ws.Extensions.parse" id="apidoc.element.ws.Extensions.parse">
         function <span class="apidocSignatureSpan">ws.Extensions.</span>parse
@@ -1210,21 +1206,22 @@ this.emit(&#x27;headers&#x27;, headers);
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">function parse(value) {
+    <li>description and source-code<pre class="apidocCodePre">(value) =&#x3e; {
   value = value || &#x27;&#x27;;
 
-  var extensions = {};
+  const extensions = {};
 
-  value.split(&#x27;,&#x27;).forEach(function (v) {
-    var params = v.split(&#x27;;&#x27;);
-    var token = params.shift().trim();
-    var paramsList = extensions[token] = extensions[token] || [];
-    var parsedParams = {};
+  value.split(&#x27;,&#x27;).forEach((v) =&#x3e; {
+    const params = v.split(&#x27;;&#x27;);
+    const token = params.shift().trim();
+    const paramsList = extensions[token] = extensions[token] || [];
+    const parsedParams = {};
 
-    params.forEach(function (param) {
-      var parts = param.trim().split(&#x27;=&#x27;);
-      var key = parts[0];
+    params.forEach((param) =&#x3e; {
+      const parts = param.trim().split(&#x27;=&#x27;);
+      const key = parts[0];
       var value = parts[1];
+
       if (value === undefined) {
         value = true;
       } else {
@@ -1261,8 +1258,8 @@ ws.on(&#x27;message&#x27;, function incoming(message) {
 });
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocFooterDiv">
