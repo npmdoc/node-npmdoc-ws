@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/websockets/ws#readme"
-
-    >ws (v2.2.3)</a>
+    <a href="https://github.com/websockets/ws#readme">ws (v2.2.3)</a>
 </h1>
 <h4>Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.ws">module ws</a><ol>
 
@@ -418,7 +411,7 @@
 
     if (bytes === this.buffers[0].length) return this.buffers.shift();
 
-    if (bytes &#x3c; this.buffers[0].length) {
+    if (bytes &lt; this.buffers[0].length) {
       dst = this.buffers[0].slice(0, bytes);
       this.buffers[0] = this.buffers[0].slice(bytes);
       return dst;
@@ -426,10 +419,10 @@
 
     dst = Buffer.allocUnsafe(bytes);
 
-    while (bytes &#x3e; 0) {
+    while (bytes &gt; 0) {
       l = this.buffers[0].length;
 
-      if (bytes &#x3e;= l) {
+      if (bytes &gt;= l) {
         this.buffers[0].copy(dst, offset);
         offset += l;
         this.buffers.shift();
@@ -449,11 +442,11 @@
    * calls `cleanup` if necessary.
    *
    * @param {Number} n The number of bytes to check against
-   * @return {Boolean} `true` if `bufferedBytes &#x3e;= n`, else `false`
+   * @return {Boolean} `true` if `bufferedBytes &gt;= n`, else `false`
    * @private
    */
   hasBufferedBytes (n) {
-    if (this.bufferedBytes &#x3e;= n) return true;
+    if (this.bufferedBytes &gt;= n) return true;
 
     this.loop = false;
     if (this.dead) this.cleanup(this.cleanupCallback);
@@ -514,25 +507,25 @@
 
     const buf = this.readBuffer(2);
 
-    if ((buf[0] &#x26; 0x30) !== 0x00) {
-      this.error(new Error(&#x27;RSV2 and RSV3 must be clear&#x27;), 1002);
+    if ((buf[0] &amp; 0x30) !== 0x00) {
+      this.error(new Error('RSV2 and RSV3 must be clear'), 1002);
       return;
     }
 
-    const compressed = (buf[0] &#x26; 0x40) === 0x40;
+    const compressed = (buf[0] &amp; 0x40) === 0x40;
 
-    if (compressed &#x26;&#x26; !this.extensions[PerMessageDeflate.extensionName]) {
-      this.error(new Error(&#x27;RSV1 must be clear&#x27;), 1002);
+    if (compressed &amp;&amp; !this.extensions[PerMessageDeflate.extensionName]) {
+      this.error(new Error('RSV1 must be clear'), 1002);
       return;
     }
 
-    this.fin = (buf[0] &#x26; 0x80) === 0x80;
-    this.opcode = buf[0] &#x26; 0x0f;
-    this.payloadLength = buf[1] &#x26; 0x7f;
+    this.fin = (buf[0] &amp; 0x80) === 0x80;
+    this.opcode = buf[0] &amp; 0x0f;
+    this.payloadLength = buf[1] &amp; 0x7f;
 
     if (this.opcode === 0x00) {
       if (compressed) {
-        this.error(new Error(&#x27;RSV1 must be clear&#x27;), 1002);
+        this.error(new Error('RSV1 must be clear'), 1002);
         return;
       }
 
@@ -587,14 +580,14 @@
    * @public
    */
   static frame (data, options) {
-    const merge = data.length &#x3c; 1024 || (options.mask &#x26;&#x26; options.readOnly);
+    const merge = data.length &lt; 1024 || (options.mask &amp;&amp; options.readOnly);
     var offset = options.mask ? 6 : 2;
     var payloadLength = data.length;
 
-    if (data.length &#x3e;= 65536) {
+    if (data.length &gt;= 65536) {
       offset += 8;
       payloadLength = 127;
-    } else if (data.length &#x3e; 125) {
+    } else if (data.length &gt; 125) {
       offset += 2;
       payloadLength = 126;
     }
@@ -648,14 +641,14 @@
    * @public
    */
   close (code, data, mask, cb) {
-    if (code !== undefined &#x26;&#x26; (typeof code !== &#x27;number&#x27; || !ErrorCodes.isValidErrorCode(code))) {
-      throw new Error(&#x27;first argument must be a valid error code number&#x27;);
+    if (code !== undefined &amp;&amp; (typeof code !== 'number' || !ErrorCodes.isValidErrorCode(code))) {
+      throw new Error('first argument must be a valid error code number');
     }
 
     const buf = Buffer.allocUnsafe(2 + (data ? Buffer.byteLength(data) : 0));
 
     buf.writeUInt16BE(code || 1000, 0, true);
-    if (buf.length &#x3e; 2) buf.write(data, 2);
+    if (buf.length &gt; 2) buf.write(data, 2);
 
     if (this.deflating) {
       this.enqueue([this.doClose, buf, mask, cb]);
@@ -742,17 +735,17 @@
       port: null
     }, options);
 
-    if (options.port == null &#x26;&#x26; !options.server &#x26;&#x26; !options.noServer) {
-      throw new TypeError(&#x27;missing or invalid options&#x27;);
+    if (options.port == null &amp;&amp; !options.server &amp;&amp; !options.noServer) {
+      throw new TypeError('missing or invalid options');
     }
 
     if (options.port != null) {
-      this._server = http.createServer((req, res) =&#x3e; {
+      this._server = http.createServer((req, res) =&gt; {
         const body = http.STATUS_CODES[426];
 
         res.writeHead(426, {
-          &#x27;Content-Length&#x27;: body.length,
-          &#x27;Content-Type&#x27;: &#x27;text/plain&#x27;
+          'Content-Length': body.length,
+          'Content-Type': 'text/plain'
         });
         res.end(body);
       });
@@ -764,12 +757,12 @@
 
     if (this._server) {
       this._ultron = new Ultron(this._server);
-      this._ultron.on(&#x27;listening&#x27;, () =&#x3e; this.emit(&#x27;listening&#x27;));
-      this._ultron.on(&#x27;error&#x27;, (err) =&#x3e; this.emit(&#x27;error&#x27;, err));
-      this._ultron.on(&#x27;upgrade&#x27;, (req, socket, head) =&#x3e; {
-        this.handleUpgrade(req, socket, head, (client) =&#x3e; {
+      this._ultron.on('listening', () =&gt; this.emit('listening'));
+      this._ultron.on('error', (err) =&gt; this.emit('error', err));
+      this._ultron.on('upgrade', (req, socket, head) =&gt; {
+        this.handleUpgrade(req, socket, head, (client) =&gt; {
           this.emit(`connection${req.url}`, client);
-          this.emit(&#x27;connection&#x27;, client);
+          this.emit('connection', client);
         });
       });
     }
@@ -816,7 +809,7 @@
    * @public
    */
   shouldHandle (req) {
-    if (this.options.path &#x26;&#x26; url.parse(req.url).pathname !== this.options.path) {
+    if (this.options.path &amp;&amp; url.parse(req.url).pathname !== this.options.path) {
       return false;
     }
 
@@ -833,20 +826,20 @@
    * @public
    */
   handleUpgrade (req, socket, head, cb) {
-    socket.on(&#x27;error&#x27;, socketError);
+    socket.on('error', socketError);
 
-    const version = +req.headers[&#x27;sec-websocket-version&#x27;];
+    const version = +req.headers['sec-websocket-version'];
 
     if (
-      req.method !== &#x27;GET&#x27; || req.headers.upgrade.toLowerCase() !== &#x27;websocket&#x27; ||
-      !req.headers[&#x27;sec-websocket-key&#x27;] || ...</pre></li>
+      req.method !== 'GET' || req.headers.upgrade.toLowerCase() !== 'websocket' ||
+      !req.headers['sec-websocket-key'] || ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 To disable the extension you can set the `perMessageDeflate` option to `false`.
 On the server:
 
 ```js
-const WebSocket = require(&#x27;ws&#x27;);
+const WebSocket = require('ws');
 
 const wss = new WebSocket.<span class="apidocCodeKeywordSpan">Server</span>({
   perMessageDeflate: false,
@@ -890,11 +883,11 @@ On the client:
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">(list, totalLength) =&#x3e; {
+    <li>description and source-code<pre class="apidocCodePre">(list, totalLength) =&gt; {
   const target = Buffer.allocUnsafe(totalLength);
   var offset = 0;
 
-  for (var i = 0; i &#x3c; list.length; i++) {
+  for (var i = 0; i &lt; list.length; i++) {
     const buf = list[i];
     buf.copy(target, offset);
     offset += buf.length;
@@ -905,18 +898,18 @@ On the client:
     <li>example usage<pre class="apidocCodePre">...
  * @public
  */
-const format = (value) =&#x3e; {
-  return Object.keys(value).map((token) =&#x3e; {
+const format = (value) =&gt; {
+  return Object.keys(value).map((token) =&gt; {
     var paramsList = value[token];
     if (!Array.isArray(paramsList)) paramsList = [paramsList];
-    return paramsList.map((params) =&#x3e; {
-      return [token].<span class="apidocCodeKeywordSpan">concat</span>(Object.keys(params).map((k) =&#x3e; {
+    return paramsList.map((params) =&gt; {
+      return [token].<span class="apidocCodeKeywordSpan">concat</span>(Object.keys(params).map((k) =&gt; {
         var p = params[k];
         if (!Array.isArray(p)) p = [p];
-        return p.map((v) =&#x3e; v === true ? k : `${k}=${v}`).join(&#x27;; &#x27;);
-      })).join(&#x27;; &#x27;);
-    }).join(&#x27;, &#x27;);
-  }).join(&#x27;, &#x27;);
+        return p.map((v) =&gt; v === true ? k : `${k}=${v}`).join('; ');
+      })).join('; ');
+    }).join(', ');
+  }).join(', ');
 };
 ...</pre></li>
     </ul>
@@ -930,9 +923,9 @@ const format = (value) =&#x3e; {
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">(source, mask, output, offset, length) =&#x3e; {
-  for (var i = 0; i &#x3c; length; i++) {
-    output[offset + i] = source[i] ^ mask[i &#x26; 3];
+    <li>description and source-code<pre class="apidocCodePre">(source, mask, output, offset, length) =&gt; {
+  for (var i = 0; i &lt; length; i++) {
+    output[offset + i] = source[i] ^ mask[i &amp; 3];
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -962,11 +955,11 @@ const format = (value) =&#x3e; {
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">(buffer, mask) =&#x3e; {
+    <li>description and source-code<pre class="apidocCodePre">(buffer, mask) =&gt; {
   // Required until https://github.com/nodejs/node/issues/9006 is resolved.
   const length = buffer.length;
-  for (var i = 0; i &#x3c; length; i++) {
-    buffer[i] ^= mask[i &#x26; 3];
+  for (var i = 0; i &lt; length; i++) {
+    buffer[i] ^= mask[i &amp; 3];
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -980,7 +973,7 @@ if (this.payloadLength) {
   if (this.masked) bufferUtil.<span class="apidocCodeKeywordSpan">unmask</span>(data, this.mask);
 }
 
-if (this.opcode &#x3e; 0x07) {
+if (this.opcode &gt; 0x07) {
   this.controlMessage(data);
 } else if (this.compressed) {
   this.state = INFLATING;
@@ -1002,7 +995,7 @@ if (this.opcode &#x3e; 0x07) {
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">() =&#x3e; {}</pre></li>
+    <li>description and source-code<pre class="apidocCodePre">() =&gt; {}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
@@ -1027,14 +1020,14 @@ if (this.opcode &#x3e; 0x07) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isValidErrorCode = function (code) {
-  return (code &#x3e;= 1000 &#x26;&#x26; code &#x3c;= 1013 &#x26;&#x26; code !== 1004 &#x26;&#x26; code !== 1005 &#x26;&#x26; code !== 1006) ||
-    (code &#x3e;= 3000 &#x26;&#x26; code &#x3c;= 4999);
+  return (code &gt;= 1000 &amp;&amp; code &lt;= 1013 &amp;&amp; code !== 1004 &amp;&amp; code !== 1005 &amp;&amp; code !== 1006) ||
+    (code &gt;= 3000 &amp;&amp; code &lt;= 4999);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 this.loop = false;
 this.cleanup(this.cleanupCallback);
       } else if (data.length === 1) {
-this.error(new Error(&#x27;invalid payload length&#x27;), 1002);
+this.error(new Error('invalid payload length'), 1002);
       } else {
 const code = data.readUInt16BE(0, true);
 
@@ -1092,7 +1085,7 @@ if (!isValidUTF8(buf)) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">addEventListener(method, listener) {
-  if (typeof listener !== &#x27;function&#x27;) return;
+  if (typeof listener !== 'function') return;
 
   function onMessage (data, flags) {
     listener.call(this, new MessageEvent(data, !!flags.binary, this));
@@ -1103,7 +1096,7 @@ if (!isValidUTF8(buf)) {
   }
 
   function onError (event) {
-    event.type = &#x27;error&#x27;;
+    event.type = 'error';
     event.target = this;
     listener.call(this, event);
   }
@@ -1112,16 +1105,16 @@ if (!isValidUTF8(buf)) {
     listener.call(this, new OpenEvent(this));
   }
 
-  if (method === &#x27;message&#x27;) {
+  if (method === 'message') {
     onMessage._listener = listener;
     this.on(method, onMessage);
-  } else if (method === &#x27;close&#x27;) {
+  } else if (method === 'close') {
     onClose._listener = listener;
     this.on(method, onClose);
-  } else if (method === &#x27;error&#x27;) {
+  } else if (method === 'error') {
     onError._listener = listener;
     this.on(method, onError);
-  } else if (method === &#x27;open&#x27;) {
+  } else if (method === 'open') {
     onOpen._listener = listener;
     this.on(method, onOpen);
   } else {
@@ -1143,7 +1136,7 @@ if (!isValidUTF8(buf)) {
     <li>description and source-code<pre class="apidocCodePre">removeEventListener(method, listener) {
   const listeners = this.listeners(method);
 
-  for (var i = 0; i &#x3c; listeners.length; i++) {
+  for (var i = 0; i &lt; listeners.length; i++) {
     if (listeners[i] === listener || listeners[i]._listener === listener) {
       this.removeListener(method, listeners[i]);
     }
@@ -1166,23 +1159,23 @@ if (!isValidUTF8(buf)) {
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">(value) =&#x3e; {
-  return Object.keys(value).map((token) =&#x3e; {
+    <li>description and source-code<pre class="apidocCodePre">(value) =&gt; {
+  return Object.keys(value).map((token) =&gt; {
     var paramsList = value[token];
     if (!Array.isArray(paramsList)) paramsList = [paramsList];
-    return paramsList.map((params) =&#x3e; {
-      return [token].concat(Object.keys(params).map((k) =&#x3e; {
+    return paramsList.map((params) =&gt; {
+      return [token].concat(Object.keys(params).map((k) =&gt; {
         var p = params[k];
         if (!Array.isArray(p)) p = [p];
-        return p.map((v) =&#x3e; v === true ? k : `${k}=${v}`).join(&#x27;; &#x27;);
-      })).join(&#x27;; &#x27;);
-    }).join(&#x27;, &#x27;);
-  }).join(&#x27;, &#x27;);
+        return p.map((v) =&gt; v === true ? k : `${k}=${v}`).join('; ');
+      })).join('; ');
+    }).join(', ');
+  }).join(', ');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 if (props.length) {
-  const serverExtensions = props.reduce((obj, key) =&#x3e; {
+  const serverExtensions = props.reduce((obj, key) =&gt; {
     obj[key] = [extensions[key].params];
     return obj;
   }, {});
@@ -1193,7 +1186,7 @@ if (props.length) {
 //
 // Allow external modification/inspection of handshake headers.
 //
-this.emit(&#x27;headers&#x27;, headers);
+this.emit('headers', headers);
 ...</pre></li>
     </ul>
 
@@ -1206,19 +1199,19 @@ this.emit(&#x27;headers&#x27;, headers);
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">(value) =&#x3e; {
-  value = value || &#x27;&#x27;;
+    <li>description and source-code<pre class="apidocCodePre">(value) =&gt; {
+  value = value || '';
 
   const extensions = {};
 
-  value.split(&#x27;,&#x27;).forEach((v) =&#x3e; {
-    const params = v.split(&#x27;;&#x27;);
+  value.split(',').forEach((v) =&gt; {
+    const params = v.split(';');
     const token = params.shift().trim();
     const paramsList = extensions[token] = extensions[token] || [];
     const parsedParams = {};
 
-    params.forEach((param) =&#x3e; {
-      const parts = param.trim().split(&#x27;=&#x27;);
+    params.forEach((param) =&gt; {
+      const parts = param.trim().split('=');
       const key = parts[0];
       var value = parts[1];
 
@@ -1226,10 +1219,10 @@ this.emit(&#x27;headers&#x27;, headers);
         value = true;
       } else {
         // unquote value
-        if (value[0] === &#x27;&#x22;&#x27;) {
+        if (value[0] === '"') {
           value = value.slice(1);
         }
-        if (value[value.length - 1] === &#x27;&#x22;&#x27;) {
+        if (value[value.length - 1] === '"') {
           value = value.slice(0, value.length - 1);
         }
       }
@@ -1242,19 +1235,19 @@ this.emit(&#x27;headers&#x27;, headers);
   return extensions;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-res.send({ msg: &#x22;hello&#x22; });
+res.send({ msg: "hello" });
 });
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-wss.on(&#x27;connection&#x27;, function connection(ws) {
+wss.on('connection', function connection(ws) {
 const location = url.<span class="apidocCodeKeywordSpan">parse</span>(ws.upgradeReq.url, true);
 // You might use location.query.access_token to authenticate or share sessions
 // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
 
-ws.on(&#x27;message&#x27;, function incoming(message) {
-  console.log(&#x27;received: %s&#x27;, message);
+ws.on('message', function incoming(message) {
+  console.log('received: %s', message);
 });
 ...</pre></li>
     </ul>
@@ -1268,3 +1261,4 @@ ws.on(&#x27;message&#x27;, function incoming(message) {
     ]
 </div>
 </div>
+</body></html>
