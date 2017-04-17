@@ -63,6 +63,24 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.ws.ws">
+            function <span class="apidocSignatureSpan"></span>ws
+            <span class="apidocSignatureSpan">(String|String[])</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.PerMessageDeflate">
+            function <span class="apidocSignatureSpan">ws.</span>PerMessageDeflate
+            <span class="apidocSignatureSpan">(options, isServer, maxPayload)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.ws.Receiver">
             function <span class="apidocSignatureSpan">ws.</span>Receiver
             <span class="apidocSignatureSpan">(extensions, maxPayload, binaryType)</span>
@@ -84,6 +102,33 @@
             <a class="apidocElementLiA" href="#apidoc.element.ws.Server">
             function <span class="apidocSignatureSpan">ws.</span>Server
             <span class="apidocSignatureSpan">(Boolean|Object)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.Validation">
+            function <span class="apidocSignatureSpan">ws.</span>Validation
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.WebSocket">
+            function <span class="apidocSignatureSpan">ws.</span>WebSocket
+            <span class="apidocSignatureSpan">(String|String[])</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.toString">
+            function <span class="apidocSignatureSpan">ws.</span>toString
+            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -347,10 +392,404 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.ws.PerMessageDeflate">module ws.PerMessageDeflate</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.PerMessageDeflate.PerMessageDeflate">
+            function <span class="apidocSignatureSpan">ws.</span>PerMessageDeflate
+            <span class="apidocSignatureSpan">(options, isServer, maxPayload)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ws.Receiver">module ws.Receiver</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.Receiver.Receiver">
+            function <span class="apidocSignatureSpan">ws.</span>Receiver
+            <span class="apidocSignatureSpan">(extensions, maxPayload, binaryType)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ws.Sender">module ws.Sender</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.Sender.Sender">
+            function <span class="apidocSignatureSpan">ws.</span>Sender
+            <span class="apidocSignatureSpan">(socket, extensions)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ws.Server">module ws.Server</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.Server.Server">
+            function <span class="apidocSignatureSpan">ws.</span>Server
+            <span class="apidocSignatureSpan">(Boolean|Object)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ws.Validation">module ws.Validation</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.Validation.Validation">
+            function <span class="apidocSignatureSpan">ws.</span>Validation
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.ws.toString">module ws.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ws.toString.toString">
+            function <span class="apidocSignatureSpan">ws.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ws" id="apidoc.module.ws">module ws</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.ws" id="apidoc.element.ws.ws">
+        function <span class="apidocSignatureSpan"></span>ws
+        <span class="apidocSignatureSpan">(String|String[])</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class WebSocket extends EventEmitter {
+<span class="apidocCodeCommentSpan">  /**
+   * Create a new `WebSocket`.
+   *
+   * @param {String} address The URL to which to connect
+   * @param {(String|String[])} protocols The subprotocols
+   * @param {Object} options Connection options
+   */
+</span>  constructor (address, protocols, options) {
+    super();
+
+    if (!protocols) {
+      protocols = [];
+    } else if (typeof protocols === &#x27;string&#x27;) {
+      protocols = [protocols];
+    } else if (!Array.isArray(protocols)) {
+      options = protocols;
+      protocols = [];
+    }
+
+    this.readyState = WebSocket.CONNECTING;
+    this.bytesReceived = 0;
+    this.extensions = {};
+    this.protocol = &#x27;&#x27;;
+
+    this._binaryType = constants.BINARY_TYPES[0];
+    this._finalize = this.finalize.bind(this);
+    this._finalizeCalled = false;
+    this._closeMessage = null;
+    this._closeTimer = null;
+    this._closeCode = null;
+    this._receiver = null;
+    this._sender = null;
+    this._socket = null;
+    this._ultron = null;
+
+    if (Array.isArray(address)) {
+      initAsServerClient.call(this, address[0], address[1], address[2], options);
+    } else {
+      initAsClient.call(this, address, protocols, options);
+    }
+  }
+
+  get CONNECTING () { return WebSocket.CONNECTING; }
+  get CLOSING () { return WebSocket.CLOSING; }
+  get CLOSED () { return WebSocket.CLOSED; }
+  get OPEN () { return WebSocket.OPEN; }
+
+  /**
+   * @type {Number}
+   */
+  get bufferedAmount () {
+    var amount = 0;
+
+    if (this._socket) {
+      amount = this._socket.bufferSize + this._sender.bufferedBytes;
+    }
+    return amount;
+  }
+
+  /**
+   * This deviates from the WHATWG interface since ws doesn&#x27;t support the required
+   * default &#x22;blob&#x22; type (instead we define a custom &#x22;nodebuffer&#x22; type).
+   *
+   * @type {String}
+   */
+  get binaryType () {
+    return this._binaryType;
+  }
+
+  set binaryType (type) {
+    if (constants.BINARY_TYPES.indexOf(type) &#x3c; 0) return;
+
+    this._binaryType = type;
+
+    //
+    // Allow to change `binaryType` on the fly.
+    //
+    if (this._receiver) this._receiver.binaryType = type;
+  }
+
+  /**
+   * Set up the socket and the internal resources.
+   *
+   * @param {net.Socket} socket The network socket between the server and client
+   * @param {Buffer} head The first packet of the upgraded stream
+   * @private
+   */
+  setSocket (socket, head) {
+    socket.setTimeout(0);
+    socket.setNoDelay();
+
+    this._receiver = new Receiver(this.extensions, this.maxPayload, this.binaryType);
+    this._sender = new Sender(socket, this.extensions);
+    this._ultron = new Ultron(socket);
+    this._socket = socket;
+
+    // socket cleanup handlers
+    this._ultron.on(&#x27;close&#x27;, this._finalize);
+    this._ultron.on(&#x27;error&#x27;, this._finalize);
+    this._ultron.on(&#x27;end&#x27;, this._finalize);
+
+    // ensure that the head is added to the receiver
+    if (head &#x26;&#x26; head.length &#x3e; 0) {
+      socket.unshift(head);
+      head = null;
+    }
+
+    // subsequent packets are pushed to the receiver
+    this._ultron.on(&#x27;data&#x27;, (data) =&#x3e; {
+      this.bytesReceived += data.length;
+      this._receiver.add(data);
+    });
+
+    // receiver event handlers
+    this._receiver.onmessage = (data, flags) =&#x3e; this.emit(&#x27;message&#x27;, data, flags);
+    this._receiver.onping = (data, flags) =&#x3e; {
+      this.pong(data, !this._isServer, true);
+      this.emit(&#x27;ping&#x27;, data, flags);
+    };
+    this._receiver.onpong = (data, flags) =&#x3e; this.emit(&#x27;pong&#x27;, data, flags);
+    this._receiver.onclose = (code, reason) =&#x3e; {
+      this._closeMessage = reason;
+      this._closeCode = code;
+      this.close(code, reason);
+    };
+    this._receiver.onerror = (error, code) =&#x3e; {
+      // close the connection when the receiver reports a HyBi error code
+      this.close(code, &#x27;&#x27;);
+      this.emit(&#x27;error&#x27;, error);
+    };
+
+    // sender event handlers
+    this._sender.onerror = (error) =&#x3e; {
+      this.close(1002, &#x27;&#x27;);
+      this.emit(&#x27;error&#x27;, error);
+    };
+
+    this.readyState = WebSocket.OPEN;
+    this.emit(&#x27;open&#x27;);
+  }
+
+  /**
+   * Clean up and release internal resources.
+   *
+   * @param {(Boolean|Error)} Indicates whether or not an error occurred
+   * @private
+   */
+  finali ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ws.PerMessageDeflate" id="apidoc.element.ws.PerMessageDeflate">
+        function <span class="apidocSignatureSpan">ws.</span>PerMessageDeflate
+        <span class="apidocSignatureSpan">(options, isServer, maxPayload)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class PerMessageDeflate {
+  constructor (options, isServer, maxPayload) {
+    this._options = options || {};
+    this._isServer = !!isServer;
+    this._inflate = null;
+    this._deflate = null;
+    this.params = null;
+    this._maxPayload = maxPayload || 0;
+    this.threshold = this._options.threshold === undefined ? 1024 : this._options.threshold;
+  }
+
+  static get extensionName () {
+    return &#x27;permessage-deflate&#x27;;
+  }
+
+<span class="apidocCodeCommentSpan">  /**
+   * Create extension parameters offer.
+   *
+   * @return {Object} Extension parameters
+   * @public
+   */
+</span>  offer () {
+    const params = {};
+
+    if (this._options.serverNoContextTakeover) {
+      params.server_no_context_takeover = true;
+    }
+    if (this._options.clientNoContextTakeover) {
+      params.client_no_context_takeover = true;
+    }
+    if (this._options.serverMaxWindowBits) {
+      params.server_max_window_bits = this._options.serverMaxWindowBits;
+    }
+    if (this._options.clientMaxWindowBits) {
+      params.client_max_window_bits = this._options.clientMaxWindowBits;
+    } else if (this._options.clientMaxWindowBits == null) {
+      params.client_max_window_bits = true;
+    }
+
+    return params;
+  }
+
+  /**
+   * Accept extension offer.
+   *
+   * @param {Array} paramsList Extension parameters
+   * @return {Object} Accepted configuration
+   * @public
+   */
+  accept (paramsList) {
+    paramsList = this.normalizeParams(paramsList);
+
+    var params;
+    if (this._isServer) {
+      params = this.acceptAsServer(paramsList);
+    } else {
+      params = this.acceptAsClient(paramsList);
+    }
+
+    this.params = params;
+    return params;
+  }
+
+  /**
+   * Releases all resources used by the extension.
+   *
+   * @public
+   */
+  cleanup () {
+    if (this._inflate) {
+      if (this._inflate.writeInProgress) {
+        this._inflate.pendingClose = true;
+      } else {
+        this._inflate.close();
+        this._inflate = null;
+      }
+    }
+    if (this._deflate) {
+      if (this._deflate.writeInProgress) {
+        this._deflate.pendingClose = true;
+      } else {
+        this._deflate.close();
+        this._deflate = null;
+      }
+    }
+  }
+
+  /**
+   * Accept extension offer from client.
+   *
+   * @param {Array} paramsList Extension parameters
+   * @return {Object} Accepted configuration
+   * @private
+   */
+  acceptAsServer (paramsList) {
+    const accepted = {};
+    const result = paramsList.some((params) =&#x3e; {
+      if ((
+        this._options.serverNoContextTakeover === false &#x26;&#x26;
+        params.server_no_context_takeover
+      ) || (
+        this._options.serverMaxWindowBits === false &#x26;&#x26;
+        params.server_max_window_bits
+      ) || (
+        typeof this._options.serverMaxWindowBits === &#x27;number&#x27; &#x26;&#x26;
+        typeof params.server_max_window_bits === &#x27;number&#x27; &#x26;&#x26;
+        this._options.serverMaxWindowBits &#x3e; params.server_max_window_bits
+      ) || (
+        typeof this._options.clientMaxWindowBits === &#x27;number&#x27; &#x26;&#x26;
+        !params.client_max_window_bits
+      )) {
+        return;
+      }
+
+      if (
+        this._options.serverNoContextTakeover ||
+        params.server_no_context_takeover
+      ) {
+        accepted.server_no_context_takeover = true;
+      }
+      if (this._options.clientNoContextTakeover) {
+        accepted.client_no_context_takeover = true;
+      }
+      if (
+        this._options.clientNoContextTakeover !== false &#x26;&#x26;
+        params.client_no_context_takeover
+      ) {
+        accepted.client_no_context_takeover = true;
+      }
+      if (typeof this._options.serverMaxWindowBits === &#x27;number&#x27;) {
+        accepted.server_max_window_bits = this._options.serverMaxWindowBits;
+      } else if (typeof params.server_max_window_bits === &#x27;number&#x27;) {
+        accepted.server_max_window_bits = params.server_max_window_bits;
+      }
+      if (typeof this._options.clientMaxWindowBits === &#x27;number&#x27;) {
+        accepted.client_max_window_bits = this._options.clientMaxWindowBits;
+      } else if (
+        this._options.clientMaxWindowBits !== false &#x26;&#x26;
+        typeof params.client_max_window_bits === &#x27;number&#x27;
+      ) {
+        accepted.client_max_window_bits = params.client_max_window_bits;
+      }
+      re ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -860,6 +1299,195 @@ On the client:
 
 
 
+    <h2>
+        <a href="#apidoc.element.ws.Validation" id="apidoc.element.ws.Validation">
+        function <span class="apidocSignatureSpan">ws.</span>Validation
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">() =&#x3e; true</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ws.WebSocket" id="apidoc.element.ws.WebSocket">
+        function <span class="apidocSignatureSpan">ws.</span>WebSocket
+        <span class="apidocSignatureSpan">(String|String[])</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class WebSocket extends EventEmitter {
+<span class="apidocCodeCommentSpan">  /**
+   * Create a new `WebSocket`.
+   *
+   * @param {String} address The URL to which to connect
+   * @param {(String|String[])} protocols The subprotocols
+   * @param {Object} options Connection options
+   */
+</span>  constructor (address, protocols, options) {
+    super();
+
+    if (!protocols) {
+      protocols = [];
+    } else if (typeof protocols === &#x27;string&#x27;) {
+      protocols = [protocols];
+    } else if (!Array.isArray(protocols)) {
+      options = protocols;
+      protocols = [];
+    }
+
+    this.readyState = WebSocket.CONNECTING;
+    this.bytesReceived = 0;
+    this.extensions = {};
+    this.protocol = &#x27;&#x27;;
+
+    this._binaryType = constants.BINARY_TYPES[0];
+    this._finalize = this.finalize.bind(this);
+    this._finalizeCalled = false;
+    this._closeMessage = null;
+    this._closeTimer = null;
+    this._closeCode = null;
+    this._receiver = null;
+    this._sender = null;
+    this._socket = null;
+    this._ultron = null;
+
+    if (Array.isArray(address)) {
+      initAsServerClient.call(this, address[0], address[1], address[2], options);
+    } else {
+      initAsClient.call(this, address, protocols, options);
+    }
+  }
+
+  get CONNECTING () { return WebSocket.CONNECTING; }
+  get CLOSING () { return WebSocket.CLOSING; }
+  get CLOSED () { return WebSocket.CLOSED; }
+  get OPEN () { return WebSocket.OPEN; }
+
+  /**
+   * @type {Number}
+   */
+  get bufferedAmount () {
+    var amount = 0;
+
+    if (this._socket) {
+      amount = this._socket.bufferSize + this._sender.bufferedBytes;
+    }
+    return amount;
+  }
+
+  /**
+   * This deviates from the WHATWG interface since ws doesn&#x27;t support the required
+   * default &#x22;blob&#x22; type (instead we define a custom &#x22;nodebuffer&#x22; type).
+   *
+   * @type {String}
+   */
+  get binaryType () {
+    return this._binaryType;
+  }
+
+  set binaryType (type) {
+    if (constants.BINARY_TYPES.indexOf(type) &#x3c; 0) return;
+
+    this._binaryType = type;
+
+    //
+    // Allow to change `binaryType` on the fly.
+    //
+    if (this._receiver) this._receiver.binaryType = type;
+  }
+
+  /**
+   * Set up the socket and the internal resources.
+   *
+   * @param {net.Socket} socket The network socket between the server and client
+   * @param {Buffer} head The first packet of the upgraded stream
+   * @private
+   */
+  setSocket (socket, head) {
+    socket.setTimeout(0);
+    socket.setNoDelay();
+
+    this._receiver = new Receiver(this.extensions, this.maxPayload, this.binaryType);
+    this._sender = new Sender(socket, this.extensions);
+    this._ultron = new Ultron(socket);
+    this._socket = socket;
+
+    // socket cleanup handlers
+    this._ultron.on(&#x27;close&#x27;, this._finalize);
+    this._ultron.on(&#x27;error&#x27;, this._finalize);
+    this._ultron.on(&#x27;end&#x27;, this._finalize);
+
+    // ensure that the head is added to the receiver
+    if (head &#x26;&#x26; head.length &#x3e; 0) {
+      socket.unshift(head);
+      head = null;
+    }
+
+    // subsequent packets are pushed to the receiver
+    this._ultron.on(&#x27;data&#x27;, (data) =&#x3e; {
+      this.bytesReceived += data.length;
+      this._receiver.add(data);
+    });
+
+    // receiver event handlers
+    this._receiver.onmessage = (data, flags) =&#x3e; this.emit(&#x27;message&#x27;, data, flags);
+    this._receiver.onping = (data, flags) =&#x3e; {
+      this.pong(data, !this._isServer, true);
+      this.emit(&#x27;ping&#x27;, data, flags);
+    };
+    this._receiver.onpong = (data, flags) =&#x3e; this.emit(&#x27;pong&#x27;, data, flags);
+    this._receiver.onclose = (code, reason) =&#x3e; {
+      this._closeMessage = reason;
+      this._closeCode = code;
+      this.close(code, reason);
+    };
+    this._receiver.onerror = (error, code) =&#x3e; {
+      // close the connection when the receiver reports a HyBi error code
+      this.close(code, &#x27;&#x27;);
+      this.emit(&#x27;error&#x27;, error);
+    };
+
+    // sender event handlers
+    this._sender.onerror = (error) =&#x3e; {
+      this.close(1002, &#x27;&#x27;);
+      this.emit(&#x27;error&#x27;, error);
+    };
+
+    this.readyState = WebSocket.OPEN;
+    this.emit(&#x27;open&#x27;);
+  }
+
+  /**
+   * Clean up and release internal resources.
+   *
+   * @param {(Boolean|Error)} Indicates whether or not an error occurred
+   * @private
+   */
+  finali ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ws.toString" id="apidoc.element.ws.toString">
+        function <span class="apidocSignatureSpan">ws.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
 
 
 
@@ -935,22 +1563,7 @@ const format = (value) =&#x3e; {
     output[offset + i] = source[i] ^ mask[i &#x26; 3];
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-  target[1] = payloadLength | 0x80;
-  target[offset - 4] = mask[0];
-  target[offset - 3] = mask[1];
-  target[offset - 2] = mask[2];
-  target[offset - 1] = mask[3];
-
-  if (merge) {
-    bufferUtil.<span class="apidocCodeKeywordSpan">mask</span>(data, mask, target, offset, data.length);
-    return [target];
-  }
-
-  bufferUtil.mask(data, mask, data, 0, data.length);
-  return [target, data];
-}
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -969,23 +1582,7 @@ const format = (value) =&#x3e; {
     buffer[i] ^= mask[i &#x26; 3];
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-  getData () {
-var data = constants.EMPTY_BUFFER;
-
-if (this.payloadLength) {
-  if (!this.hasBufferedBytes(this.payloadLength)) return;
-
-  data = this.readBuffer(this.payloadLength);
-  if (this.masked) bufferUtil.<span class="apidocCodeKeywordSpan">unmask</span>(data, this.mask);
-}
-
-if (this.opcode &#x3e; 0x07) {
-  this.controlMessage(data);
-} else if (this.compressed) {
-  this.state = INFLATING;
-  this.decompress(data);
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -1030,23 +1627,7 @@ if (this.opcode &#x3e; 0x07) {
   return (code &#x3e;= 1000 &#x26;&#x26; code &#x3c;= 1013 &#x26;&#x26; code !== 1004 &#x26;&#x26; code !== 1005 &#x26;&#x26; code !== 1006) ||
     (code &#x3e;= 3000 &#x26;&#x26; code &#x3c;= 4999);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-this.loop = false;
-this.cleanup(this.cleanupCallback);
-      } else if (data.length === 1) {
-this.error(new Error(&#x27;invalid payload length&#x27;), 1002);
-      } else {
-const code = data.readUInt16BE(0, true);
-
-if (!ErrorCodes.<span class="apidocCodeKeywordSpan">isValidErrorCode</span>(code)) {
-  this.error(new Error(`invalid status code: ${code}`), 1002);
-  return;
-}
-
-const buf = data.slice(2);
-
-if (!isValidUTF8(buf)) {
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -1179,22 +1760,7 @@ if (!isValidUTF8(buf)) {
     }).join(&#x27;, &#x27;);
   }).join(&#x27;, &#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-if (props.length) {
-  const serverExtensions = props.reduce((obj, key) =&#x3e; {
-    obj[key] = [extensions[key].params];
-    return obj;
-  }, {});
-
-  headers.push(`Sec-WebSocket-Extensions: ${Extensions.<span class="apidocCodeKeywordSpan">format</span>(serverExtensions)}`);
-}
-
-//
-// Allow external modification/inspection of handshake headers.
-//
-this.emit(&#x27;headers&#x27;, headers);
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -1257,6 +1823,724 @@ ws.on(&#x27;message&#x27;, function incoming(message) {
   console.log(&#x27;received: %s&#x27;, message);
 });
 ...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ws.PerMessageDeflate" id="apidoc.module.ws.PerMessageDeflate">module ws.PerMessageDeflate</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.PerMessageDeflate.PerMessageDeflate" id="apidoc.element.ws.PerMessageDeflate.PerMessageDeflate">
+        function <span class="apidocSignatureSpan">ws.</span>PerMessageDeflate
+        <span class="apidocSignatureSpan">(options, isServer, maxPayload)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class PerMessageDeflate {
+  constructor (options, isServer, maxPayload) {
+    this._options = options || {};
+    this._isServer = !!isServer;
+    this._inflate = null;
+    this._deflate = null;
+    this.params = null;
+    this._maxPayload = maxPayload || 0;
+    this.threshold = this._options.threshold === undefined ? 1024 : this._options.threshold;
+  }
+
+  static get extensionName () {
+    return &#x27;permessage-deflate&#x27;;
+  }
+
+<span class="apidocCodeCommentSpan">  /**
+   * Create extension parameters offer.
+   *
+   * @return {Object} Extension parameters
+   * @public
+   */
+</span>  offer () {
+    const params = {};
+
+    if (this._options.serverNoContextTakeover) {
+      params.server_no_context_takeover = true;
+    }
+    if (this._options.clientNoContextTakeover) {
+      params.client_no_context_takeover = true;
+    }
+    if (this._options.serverMaxWindowBits) {
+      params.server_max_window_bits = this._options.serverMaxWindowBits;
+    }
+    if (this._options.clientMaxWindowBits) {
+      params.client_max_window_bits = this._options.clientMaxWindowBits;
+    } else if (this._options.clientMaxWindowBits == null) {
+      params.client_max_window_bits = true;
+    }
+
+    return params;
+  }
+
+  /**
+   * Accept extension offer.
+   *
+   * @param {Array} paramsList Extension parameters
+   * @return {Object} Accepted configuration
+   * @public
+   */
+  accept (paramsList) {
+    paramsList = this.normalizeParams(paramsList);
+
+    var params;
+    if (this._isServer) {
+      params = this.acceptAsServer(paramsList);
+    } else {
+      params = this.acceptAsClient(paramsList);
+    }
+
+    this.params = params;
+    return params;
+  }
+
+  /**
+   * Releases all resources used by the extension.
+   *
+   * @public
+   */
+  cleanup () {
+    if (this._inflate) {
+      if (this._inflate.writeInProgress) {
+        this._inflate.pendingClose = true;
+      } else {
+        this._inflate.close();
+        this._inflate = null;
+      }
+    }
+    if (this._deflate) {
+      if (this._deflate.writeInProgress) {
+        this._deflate.pendingClose = true;
+      } else {
+        this._deflate.close();
+        this._deflate = null;
+      }
+    }
+  }
+
+  /**
+   * Accept extension offer from client.
+   *
+   * @param {Array} paramsList Extension parameters
+   * @return {Object} Accepted configuration
+   * @private
+   */
+  acceptAsServer (paramsList) {
+    const accepted = {};
+    const result = paramsList.some((params) =&#x3e; {
+      if ((
+        this._options.serverNoContextTakeover === false &#x26;&#x26;
+        params.server_no_context_takeover
+      ) || (
+        this._options.serverMaxWindowBits === false &#x26;&#x26;
+        params.server_max_window_bits
+      ) || (
+        typeof this._options.serverMaxWindowBits === &#x27;number&#x27; &#x26;&#x26;
+        typeof params.server_max_window_bits === &#x27;number&#x27; &#x26;&#x26;
+        this._options.serverMaxWindowBits &#x3e; params.server_max_window_bits
+      ) || (
+        typeof this._options.clientMaxWindowBits === &#x27;number&#x27; &#x26;&#x26;
+        !params.client_max_window_bits
+      )) {
+        return;
+      }
+
+      if (
+        this._options.serverNoContextTakeover ||
+        params.server_no_context_takeover
+      ) {
+        accepted.server_no_context_takeover = true;
+      }
+      if (this._options.clientNoContextTakeover) {
+        accepted.client_no_context_takeover = true;
+      }
+      if (
+        this._options.clientNoContextTakeover !== false &#x26;&#x26;
+        params.client_no_context_takeover
+      ) {
+        accepted.client_no_context_takeover = true;
+      }
+      if (typeof this._options.serverMaxWindowBits === &#x27;number&#x27;) {
+        accepted.server_max_window_bits = this._options.serverMaxWindowBits;
+      } else if (typeof params.server_max_window_bits === &#x27;number&#x27;) {
+        accepted.server_max_window_bits = params.server_max_window_bits;
+      }
+      if (typeof this._options.clientMaxWindowBits === &#x27;number&#x27;) {
+        accepted.client_max_window_bits = this._options.clientMaxWindowBits;
+      } else if (
+        this._options.clientMaxWindowBits !== false &#x26;&#x26;
+        typeof params.client_max_window_bits === &#x27;number&#x27;
+      ) {
+        accepted.client_max_window_bits = params.client_max_window_bits;
+      }
+      re ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ws.Receiver" id="apidoc.module.ws.Receiver">module ws.Receiver</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.Receiver.Receiver" id="apidoc.element.ws.Receiver.Receiver">
+        function <span class="apidocSignatureSpan">ws.</span>Receiver
+        <span class="apidocSignatureSpan">(extensions, maxPayload, binaryType)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class Receiver {
+<span class="apidocCodeCommentSpan">  /**
+   * Creates a Receiver instance.
+   *
+   * @param {Object} extensions An object containing the negotiated extensions
+   * @param {Number} maxPayload The maximum allowed message length
+   * @param {String} binaryType The type for binary data
+   */
+</span>  constructor (extensions, maxPayload, binaryType) {
+    this.binaryType = binaryType || constants.BINARY_TYPES[0];
+    this.extensions = extensions || {};
+    this.maxPayload = maxPayload | 0;
+
+    this.bufferedBytes = 0;
+    this.buffers = [];
+
+    this.compressed = false;
+    this.payloadLength = 0;
+    this.fragmented = 0;
+    this.masked = false;
+    this.fin = false;
+    this.mask = null;
+    this.opcode = 0;
+
+    this.totalPayloadLength = 0;
+    this.messageLength = 0;
+    this.fragments = [];
+
+    this.cleanupCallback = null;
+    this.hadError = false;
+    this.dead = false;
+    this.loop = false;
+
+    this.onmessage = null;
+    this.onclose = null;
+    this.onerror = null;
+    this.onping = null;
+    this.onpong = null;
+
+    this.state = GET_INFO;
+  }
+
+  /**
+   * Consumes bytes from the available buffered data.
+   *
+   * @param {Number} bytes The number of bytes to consume
+   * @return {Buffer} Consumed bytes
+   * @private
+   */
+  readBuffer (bytes) {
+    var offset = 0;
+    var dst;
+    var l;
+
+    this.bufferedBytes -= bytes;
+
+    if (bytes === this.buffers[0].length) return this.buffers.shift();
+
+    if (bytes &#x3c; this.buffers[0].length) {
+      dst = this.buffers[0].slice(0, bytes);
+      this.buffers[0] = this.buffers[0].slice(bytes);
+      return dst;
+    }
+
+    dst = Buffer.allocUnsafe(bytes);
+
+    while (bytes &#x3e; 0) {
+      l = this.buffers[0].length;
+
+      if (bytes &#x3e;= l) {
+        this.buffers[0].copy(dst, offset);
+        offset += l;
+        this.buffers.shift();
+      } else {
+        this.buffers[0].copy(dst, offset, 0, bytes);
+        this.buffers[0] = this.buffers[0].slice(bytes);
+      }
+
+      bytes -= l;
+    }
+
+    return dst;
+  }
+
+  /**
+   * Checks if the number of buffered bytes is bigger or equal than `n` and
+   * calls `cleanup` if necessary.
+   *
+   * @param {Number} n The number of bytes to check against
+   * @return {Boolean} `true` if `bufferedBytes &#x3e;= n`, else `false`
+   * @private
+   */
+  hasBufferedBytes (n) {
+    if (this.bufferedBytes &#x3e;= n) return true;
+
+    this.loop = false;
+    if (this.dead) this.cleanup(this.cleanupCallback);
+    return false;
+  }
+
+  /**
+   * Adds new data to the parser.
+   *
+   * @public
+   */
+  add (data) {
+    if (this.dead) return;
+
+    this.bufferedBytes += data.length;
+    this.buffers.push(data);
+    this.startLoop();
+  }
+
+  /**
+   * Starts the parsing loop.
+   *
+   * @private
+   */
+  startLoop () {
+    this.loop = true;
+
+    while (this.loop) {
+      switch (this.state) {
+        case GET_INFO:
+          this.getInfo();
+          break;
+        case GET_PAYLOAD_LENGTH_16:
+          this.getPayloadLength16();
+          break;
+        case GET_PAYLOAD_LENGTH_64:
+          this.getPayloadLength64();
+          break;
+        case GET_MASK:
+          this.getMask();
+          break;
+        case GET_DATA:
+          this.getData();
+          break;
+        default: // `INFLATING`
+          this.loop = false;
+      }
+    }
+  }
+
+  /**
+   * Reads the first two bytes of a frame.
+   *
+   * @private
+   */
+  getInfo () {
+    if (!this.hasBufferedBytes(2)) return;
+
+    const buf = this.readBuffer(2);
+
+    if ((buf[0] &#x26; 0x30) !== 0x00) {
+      this.error(new Error(&#x27;RSV2 and RSV3 must be clear&#x27;), 1002);
+      return;
+    }
+
+    const compressed = (buf[0] &#x26; 0x40) === 0x40;
+
+    if (compressed &#x26;&#x26; !this.extensions[PerMessageDeflate.extensionName]) {
+      this.error(new Error(&#x27;RSV1 must be clear&#x27;), 1002);
+      return;
+    }
+
+    this.fin = (buf[0] &#x26; 0x80) === 0x80;
+    this.opcode = buf[0] &#x26; 0x0f;
+    this.payloadLength = buf[1] &#x26; 0x7f;
+
+    if (this.opcode === 0x00) {
+      if (compressed) {
+        this.error(new Error(&#x27;RSV1 must be clear&#x27;), 1002);
+        return;
+      }
+
+      if (!this.fragmented) {
+        this.error(new Error(`invalid opcode: ${this.opcode}`), 1002);
+        return;
+      } else { ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ws.Sender" id="apidoc.module.ws.Sender">module ws.Sender</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.Sender.Sender" id="apidoc.element.ws.Sender.Sender">
+        function <span class="apidocSignatureSpan">ws.</span>Sender
+        <span class="apidocSignatureSpan">(socket, extensions)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class Sender {
+<span class="apidocCodeCommentSpan">  /**
+   * Creates a Sender instance.
+   *
+   * @param {net.Socket} socket The connection socket
+   * @param {Object} extensions An object containing the negotiated extensions
+   */
+</span>  constructor (socket, extensions) {
+    this.perMessageDeflate = (extensions || {})[PerMessageDeflate.extensionName];
+    this._socket = socket;
+
+    this.firstFragment = true;
+    this.compress = false;
+
+    this.bufferedBytes = 0;
+    this.deflating = false;
+    this.queue = [];
+
+    this.onerror = null;
+  }
+
+  /**
+   * Frames a piece of data according to the HyBi WebSocket protocol.
+   *
+   * @param {Buffer} data The data to frame
+   * @param {Object} options Options object
+   * @param {Number} options.opcode The opcode
+   * @param {Boolean} options.readOnly Specifies whether `data` can be modified
+   * @param {Boolean} options.fin Specifies whether or not to set the FIN bit
+   * @param {Boolean} options.mask Specifies whether or not to mask `data`
+   * @param {Boolean} options.rsv1 Specifies whether or not to set the RSV1 bit
+   * @return {Buffer[]} The framed data as a list of `Buffer` instances
+   * @public
+   */
+  static frame (data, options) {
+    const merge = data.length &#x3c; 1024 || (options.mask &#x26;&#x26; options.readOnly);
+    var offset = options.mask ? 6 : 2;
+    var payloadLength = data.length;
+
+    if (data.length &#x3e;= 65536) {
+      offset += 8;
+      payloadLength = 127;
+    } else if (data.length &#x3e; 125) {
+      offset += 2;
+      payloadLength = 126;
+    }
+
+    const target = Buffer.allocUnsafe(merge ? data.length + offset : offset);
+
+    target[0] = options.fin ? options.opcode | 0x80 : options.opcode;
+    if (options.rsv1) target[0] |= 0x40;
+
+    if (payloadLength === 126) {
+      target.writeUInt16BE(data.length, 2, true);
+    } else if (payloadLength === 127) {
+      target.writeUInt32BE(0, 2, true);
+      target.writeUInt32BE(data.length, 6, true);
+    }
+
+    if (!options.mask) {
+      target[1] = payloadLength;
+      if (merge) {
+        data.copy(target, offset);
+        return [target];
+      }
+
+      return [target, data];
+    }
+
+    const mask = crypto.randomBytes(4);
+
+    target[1] = payloadLength | 0x80;
+    target[offset - 4] = mask[0];
+    target[offset - 3] = mask[1];
+    target[offset - 2] = mask[2];
+    target[offset - 1] = mask[3];
+
+    if (merge) {
+      bufferUtil.mask(data, mask, target, offset, data.length);
+      return [target];
+    }
+
+    bufferUtil.mask(data, mask, data, 0, data.length);
+    return [target, data];
+  }
+
+  /**
+   * Sends a close message to the other peer.
+   *
+   * @param {(Number|undefined)} code The status code component of the body
+   * @param {String} data The message component of the body
+   * @param {Boolean} mask Specifies whether or not to mask the message
+   * @param {Function} cb Callback
+   * @public
+   */
+  close (code, data, mask, cb) {
+    if (code !== undefined &#x26;&#x26; (typeof code !== &#x27;number&#x27; || !ErrorCodes.isValidErrorCode(code))) {
+      throw new Error(&#x27;first argument must be a valid error code number&#x27;);
+    }
+
+    const buf = Buffer.allocUnsafe(2 + (data ? Buffer.byteLength(data) : 0));
+
+    buf.writeUInt16BE(code || 1000, 0, true);
+    if (buf.length &#x3e; 2) buf.write(data, 2);
+
+    if (this.deflating) {
+      this.enqueue([this.doClose, buf, mask, cb]);
+    } else {
+      this.doClose(buf, mask, cb);
+    }
+  }
+
+  /**
+   * Frames and sends a close message.
+   *
+   * @param {Buffer} data The message to send
+   * @param {Boolean} mask Specifies whether or not to mask `data`
+   * @param {Function} cb Callback
+   * @private
+   */
+  doClose (data, mask, cb) {
+    this.sendFrame(Sender.frame(data, {
+      readOnly: false,
+      opcode: 0x08,
+      rsv1: false,
+      fin: true,
+      mask
+    }), cb);
+  }
+
+  /**
+   * Sends a ping message to the other peer.
+   *
+   * @param {*} data The message to send
+   * @param {Boolean} mask Specifies whether or not to mask `data`
+   * @public
+   */
+  ping (data, mask) {
+    var readOnly = true;
+
+    if (!Buffer.isBuffer(data)) {
+      if (data instanceof ArrayBuffer) {
+        data = Buffer.from(data);
+      } else if (ArrayBuffer.isV ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ws.Server" id="apidoc.module.ws.Server">module ws.Server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.Server.Server" id="apidoc.element.ws.Server.Server">
+        function <span class="apidocSignatureSpan">ws.</span>Server
+        <span class="apidocSignatureSpan">(Boolean|Object)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">class WebSocketServer extends EventEmitter {
+<span class="apidocCodeCommentSpan">  /**
+   * Create a `WebSocketServer` instance.
+   *
+   * @param {Object} options Configuration options
+   * @param {String} options.host The hostname where to bind the server
+   * @param {Number} options.port The port where to bind the server
+   * @param {http.Server} options.server A pre-created HTTP/S server to use
+   * @param {Function} options.verifyClient An hook to reject connections
+   * @param {Function} options.handleProtocols An hook to handle protocols
+   * @param {String} options.path Accept only connections matching this path
+   * @param {Boolean} options.noServer Enable no server mode
+   * @param {Boolean} options.clientTracking Specifies whether or not to track clients
+   * @param {(Boolean|Object)} options.perMessageDeflate Enable/disable permessage-deflate
+   * @param {Number} options.maxPayload The maximum allowed message size
+   * @param {Function} callback A listener for the `listening` event
+   */
+</span>  constructor (options, callback) {
+    super();
+
+    options = Object.assign({
+      maxPayload: 100 * 1024 * 1024,
+      perMessageDeflate: true,
+      handleProtocols: null,
+      clientTracking: true,
+      verifyClient: null,
+      noServer: false,
+      backlog: null, // use default (511 as implemented in net.js)
+      server: null,
+      host: null,
+      path: null,
+      port: null
+    }, options);
+
+    if (options.port == null &#x26;&#x26; !options.server &#x26;&#x26; !options.noServer) {
+      throw new TypeError(&#x27;missing or invalid options&#x27;);
+    }
+
+    if (options.port != null) {
+      this._server = http.createServer((req, res) =&#x3e; {
+        const body = http.STATUS_CODES[426];
+
+        res.writeHead(426, {
+          &#x27;Content-Length&#x27;: body.length,
+          &#x27;Content-Type&#x27;: &#x27;text/plain&#x27;
+        });
+        res.end(body);
+      });
+      this._server.allowHalfOpen = false;
+      this._server.listen(options.port, options.host, options.backlog, callback);
+    } else if (options.server) {
+      this._server = options.server;
+    }
+
+    if (this._server) {
+      this._ultron = new Ultron(this._server);
+      this._ultron.on(&#x27;listening&#x27;, () =&#x3e; this.emit(&#x27;listening&#x27;));
+      this._ultron.on(&#x27;error&#x27;, (err) =&#x3e; this.emit(&#x27;error&#x27;, err));
+      this._ultron.on(&#x27;upgrade&#x27;, (req, socket, head) =&#x3e; {
+        this.handleUpgrade(req, socket, head, (client) =&#x3e; {
+          this.emit(`connection${req.url}`, client);
+          this.emit(&#x27;connection&#x27;, client);
+        });
+      });
+    }
+
+    if (options.clientTracking) this.clients = new Set();
+    this.options = options;
+    this.path = options.path;
+  }
+
+  /**
+   * Close the server.
+   *
+   * @param {Function} cb Callback
+   * @public
+   */
+  close (cb) {
+    //
+    // Terminate all associated clients.
+    //
+    if (this.clients) {
+      for (const client of this.clients) client.terminate();
+    }
+
+    const server = this._server;
+
+    if (server) {
+      this._ultron.destroy();
+      this._ultron = this._server = null;
+
+      //
+      // Close the http server if it was internally created.
+      //
+      if (this.options.port != null) return server.close(cb);
+    }
+
+    if (cb) cb();
+  }
+
+  /**
+   * See if a given request should be handled by this server instance.
+   *
+   * @param {http.IncomingMessage} req Request object to inspect
+   * @return {Boolean} `true` if the request is valid, else `false`
+   * @public
+   */
+  shouldHandle (req) {
+    if (this.options.path &#x26;&#x26; url.parse(req.url).pathname !== this.options.path) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Handle a HTTP Upgrade request.
+   *
+   * @param {http.IncomingMessage} req The request object
+   * @param {net.Socket} socket The network socket between the server and client
+   * @param {Buffer} head The first packet of the upgraded stream
+   * @param {Function} cb Callback
+   * @public
+   */
+  handleUpgrade (req, socket, head, cb) {
+    socket.on(&#x27;error&#x27;, socketError);
+
+    const version = +req.headers[&#x27;sec-websocket-version&#x27;];
+
+    if (
+      req.method !== &#x27;GET&#x27; || req.headers.upgrade.toLowerCase() !== &#x27;websocket&#x27; ||
+      !req.headers[&#x27;sec-websocket-key&#x27;] || ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+To disable the extension you can set the `perMessageDeflate` option to `false`.
+On the server:
+
+```js
+const WebSocket = require(&#x27;ws&#x27;);
+
+const wss = new WebSocket.<span class="apidocCodeKeywordSpan">Server</span>({
+  perMessageDeflate: false,
+  port: 8080
+});
+```
+
+On the client:
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ws.Validation" id="apidoc.module.ws.Validation">module ws.Validation</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.Validation.Validation" id="apidoc.element.ws.Validation.Validation">
+        function <span class="apidocSignatureSpan">ws.</span>Validation
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">() =&#x3e; true</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.ws.toString" id="apidoc.module.ws.toString">module ws.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ws.toString.toString" id="apidoc.element.ws.toString.toString">
+        function <span class="apidocSignatureSpan">ws.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
