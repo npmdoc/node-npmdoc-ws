@@ -47,7 +47,7 @@
 }
 </style>
 <h1>api documentation for
-    <a href="https://github.com/websockets/ws#readme">ws (v2.2.3)</a>
+    <a href="https://github.com/websockets/ws">ws (v2.3.1)</a>
 </h1>
 <h4>Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js</h4>
 <div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
@@ -938,11 +938,11 @@
    */
   doClose (data, mask, cb) {
     this.sendFrame(Sender.frame(data, {
-      readOnly: false,
-      opcode: 0x08,
-      rsv1: false,
       fin: true,
-      mask
+      rsv1: false,
+      opcode: 0x08,
+      mask,
+      readOnly: false
     }), cb);
   }
 
@@ -1555,7 +1555,22 @@ if (!isValidUTF8(buf)) {
     this.on(method, listener);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      const listeners = this.listeners(method);
+      for (var i = 0; i &lt; listeners.length; i++) {
+        //
+        // Remove only the listeners added via `addEventListener`.
+        //
+        if (listeners[i]._listener) this.removeListener(method, listeners[i]);
+      }
+      this.<span class="apidocCodeKeywordSpan">addEventListener</span>(method, listener);
+    }
+  });
+});
+
+WebSocket.prototype.addEventListener = EventTarget.addEventListener;
+WebSocket.prototype.removeEventListener = EventTarget.removeEventListener;
+...</pre></li>
     </ul>
 
 
@@ -1607,20 +1622,22 @@ if (!isValidUTF8(buf)) {
   }).join(', ');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+    'Connection': 'Upgrade',
+    'Upgrade': 'websocket'
+  }
+};
 
-if (props.length) {
-  const serverExtensions = props.reduce((obj, key) =&gt; {
-    obj[key] = [extensions[key].params];
-    return obj;
-  }, {});
-
-  headers.push(`Sec-WebSocket-Extensions: ${Extensions.<span class="apidocCodeKeywordSpan">format</span>(serverExtensions)}`);
+if (options.headers) Object.assign(requestOptions.headers, options.headers);
+if (Object.keys(extensionsOffer).length) {
+  requestOptions.headers['Sec-WebSocket-Extensions'] = Extensions.<span class="apidocCodeKeywordSpan">format</span>(extensionsOffer
+);
 }
-
-//
-// Allow external modification/inspection of handshake headers.
-//
-this.emit('headers', headers);
+if (options.protocol) {
+  requestOptions.headers['Sec-WebSocket-Protocol'] = options.protocol;
+}
+if (options.origin) {
+  if (options.protocolVersion &lt; 13) {
+    requestOptions.headers['Sec-WebSocket-Origin'] = options.origin;
 ...</pre></li>
     </ul>
 
@@ -2175,11 +2192,11 @@ ws.on('message', function incoming(message) {
    */
   doClose (data, mask, cb) {
     this.sendFrame(Sender.frame(data, {
-      readOnly: false,
-      opcode: 0x08,
-      rsv1: false,
       fin: true,
-      mask
+      rsv1: false,
+      opcode: 0x08,
+      mask,
+      readOnly: false
     }), cb);
   }
 
@@ -2418,7 +2435,22 @@ On the client:
     this.on(method, listener);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      const listeners = this.listeners(method);
+      for (var i = 0; i &lt; listeners.length; i++) {
+        //
+        // Remove only the listeners added via `addEventListener`.
+        //
+        if (listeners[i]._listener) this.removeListener(method, listeners[i]);
+      }
+      this.<span class="apidocCodeKeywordSpan">addEventListener</span>(method, listener);
+    }
+  });
+});
+
+WebSocket.prototype.addEventListener = EventTarget.addEventListener;
+WebSocket.prototype.removeEventListener = EventTarget.removeEventListener;
+...</pre></li>
     </ul>
 
 
